@@ -1,0 +1,225 @@
+/* Profile Setup Wizard Styles */
+
+.wizard-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-premium);
+  min-height: 600px;
+  overflow: hidden;
+  margin: 40px auto;
+}
+
+/* Sidebar Step List */
+.wizard-sidebar {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.wizard-sidebar-title {
+  color: var(--color-white);
+  font-size: var(--font-body-lg);
+  font-weight: var(--weight-bold);
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.wizard-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+}
+
+.wizard-step-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.5;
+  transition: opacity var(--transition-normal);
+}
+
+.wizard-step-item.active {
+  opacity: 1;
+}
+
+.wizard-step-item.completed {
+  opacity: 0.85;
+}
+
+.step-indicator-bubble {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-small);
+  font-weight: var(--weight-bold);
+  transition: all var(--transition-normal);
+}
+
+.wizard-step-item.active .step-indicator-bubble {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.wizard-step-item.completed .step-indicator-bubble {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.step-label {
+  font-size: var(--font-caption);
+  font-weight: var(--weight-medium);
+  text-align: left;
+}
+
+/* Main Content Panel */
+.wizard-main {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.wizard-header {
+  border-bottom: 1px solid #E5E7EB;
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+
+.wizard-header h2 {
+  font-size: var(--font-card);
+  font-weight: var(--weight-bold);
+}
+
+.wizard-header p {
+  color: #6B7280;
+  font-size: var(--font-caption);
+  margin-top: 4px;
+}
+
+.wizard-content {
+  flex: 1;
+}
+
+.wizard-footer {
+  border-top: 1px solid #E5E7EB;
+  padding-top: 24px;
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Custom styles for specific steps */
+.lifestyle-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.tag-btn {
+  border: 1px solid #D1CDCA;
+  background-color: var(--color-white);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: var(--font-caption);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--color-primary);
+}
+
+.tag-btn:hover {
+  background-color: var(--color-background);
+  border-color: var(--color-secondary);
+}
+
+.tag-btn.selected {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--color-white);
+}
+
+/* Review / Summary list on Step 7 */
+.review-section {
+  margin-bottom: 24px;
+  border-bottom: 1px dashed #E5E7EB;
+  padding-bottom: 16px;
+}
+
+.review-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.review-section-title {
+  font-weight: var(--weight-bold);
+  font-size: var(--font-caption);
+  color: var(--color-secondary);
+  margin-bottom: 12px;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.review-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.review-item-label {
+  font-size: var(--font-small);
+  color: #6B7280;
+}
+
+.review-item-value {
+  font-size: var(--font-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-primary);
+}
+
+/* Progress bar for mobile views */
+.mobile-progress-bar-container {
+  display: none;
+  background-color: #E5E7EB;
+  height: 6px;
+  width: 100%;
+}
+
+.mobile-progress-bar {
+  background-color: var(--color-secondary);
+  height: 100%;
+  transition: width var(--transition-normal);
+}
+
+/* Responsive adjustments for Wizard */
+@media (max-width: 900px) {
+  .wizard-container {
+    grid-template-columns: 1fr;
+    margin: 20px auto;
+  }
+  .wizard-sidebar {
+    display: none;
+  }
+  .mobile-progress-bar-container {
+    display: block;
+  }
+  .wizard-main {
+    padding: 24px;
+  }
+}

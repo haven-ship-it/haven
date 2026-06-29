@@ -1,0 +1,12 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# OS metadata
+.Spotlight-V100
+.Trashes
+
+# Node / Build files (if any)
+node_modules/
+dist/
+.env

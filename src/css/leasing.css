@@ -1,0 +1,268 @@
+/* Property Applications & Leasing Workflow Styles */
+
+/* 1. Split screen layout for Landlord Chats */
+.chat-layout-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(13, 27, 75, 0.08);
+  height: 520px;
+  overflow: hidden;
+}
+
+.chat-landlords-sidebar {
+  border-right: 1px solid #E5E7EB;
+  background-color: #FAF9F6;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-landlord-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #E5E7EB;
+  transition: background-color var(--transition-fast);
+  text-align: left;
+}
+
+.chat-landlord-row:hover {
+  background-color: #FAF6F0;
+}
+
+.chat-landlord-row.active {
+  background-color: #F1ECE4;
+  border-left: 4px solid var(--color-secondary);
+}
+
+.chat-landlord-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-weight: var(--weight-bold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-main-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-messages-container {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #FAF9F6;
+}
+
+/* Chat bubble styling */
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+}
+
+.message-wrapper.tenant {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.message-wrapper.landlord {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.message-bubble {
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-caption);
+  line-height: 1.4;
+  box-shadow: var(--shadow-sm);
+}
+
+.message-wrapper.tenant .message-bubble {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border-bottom-right-radius: 2px;
+}
+
+.message-wrapper.landlord .message-bubble {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-bottom-left-radius: 2px;
+  border: 1px solid #E5E7EB;
+}
+
+.message-time {
+  font-size: 9px;
+  color: #9CA3AF;
+  margin-top: 4px;
+}
+
+.chat-input-bar {
+  padding: 16px 24px;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  gap: 12px;
+  background-color: var(--color-white);
+}
+
+/* 2. Calendar Selector Grid */
+.calendar-widget {
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  border: 1px solid rgba(13, 27, 75, 0.04);
+  box-shadow: var(--shadow-sm);
+}
+
+.calendar-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+}
+
+.calendar-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  text-align: center;
+}
+
+.calendar-day-label {
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  color: #9CA3AF;
+  text-transform: uppercase;
+}
+
+.calendar-cell {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.calendar-cell.muted {
+  color: #D1D5DB;
+  cursor: not-allowed;
+}
+
+.calendar-cell.active {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  font-weight: var(--weight-bold);
+}
+
+.calendar-cell:not(.muted):not(.active):hover {
+  background-color: var(--color-background);
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.time-slot-btn {
+  background: var(--color-white);
+  border: 1px solid #D1CDCA;
+  padding: 8px;
+  font-family: inherit;
+  font-size: var(--font-caption);
+  font-weight: var(--weight-semibold);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--color-primary);
+}
+
+.time-slot-btn:hover {
+  border-color: var(--color-secondary);
+  background-color: rgba(26, 122, 138, 0.02);
+}
+
+.time-slot-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* 3. Lease Agreement paper sheet */
+.lease-document-paper {
+  background-color: var(--color-white);
+  border: 1px solid #D1CDCA;
+  border-radius: var(--radius-sm);
+  padding: 48px;
+  box-shadow: var(--shadow-md);
+  max-height: 400px;
+  overflow-y: auto;
+  line-height: 1.7;
+  font-size: var(--font-caption);
+  color: #374151;
+  text-align: left;
+}
+
+.lease-document-paper h3 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+}
+
+.lease-clause-block {
+  margin-bottom: 20px;
+}
+
+.lease-clause-title {
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.signature-input-cursive {
+  font-family: 'Brush Script MT', 'Lucida Handwriting', 'Segoe Script', cursive, sans-serif;
+  font-size: 28px;
+  color: #1E3A8A;
+  padding: 8px 16px;
+  border: none;
+  border-bottom: 2px dashed var(--color-primary);
+  background: transparent;
+  outline: none;
+  width: 100%;
+}
+
+.executed-stamp-mark {
+  border: 4px double var(--color-success);
+  color: var(--color-success);
+  font-size: 20px;
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: inline-block;
+  transform: rotate(-8deg);
+  letter-spacing: 0.1em;
+  margin: 16px 0;
+}
