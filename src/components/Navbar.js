@@ -82,7 +82,7 @@ export const Navbar = {
         <ul class="nav-links">
           <li><a href="#" class="nav-link" id="nav-dash-link">${state.user && (state.user.role === 'Landlord' || state.user.role === 'Agent') ? 'Landlord Portal' : (state.user && (state.user.role === 'Corporate Partner' || state.user.role === 'University Housing' || state.user.role === 'NGO Coordinator')) ? 'Partner Portal' : (state.user && state.user.role === 'Admin') ? 'Admin Console' : 'Dashboard'}</a></li>
           <li><a href="#" class="nav-link" id="nav-discovery-link">Find Properties</a></li>
-          <li><a href="#" class="nav-link" id="nav-leasing-link">Leasing & Chat</a></li>
+          <li><a href="#" class="nav-link" id="nav-leasing-link">Leasing Workflow</a></li>
           <li><a href="#" class="nav-link" id="nav-wallet-link">Wallet & Escrow</a></li>
           <li><a href="#" class="nav-link" id="nav-profile-link">Profile Wizard</a></li>
           <li><a href="#" class="nav-link" id="nav-verify-link">Identity Verification</a></li>

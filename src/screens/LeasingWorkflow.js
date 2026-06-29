@@ -11,8 +11,7 @@ export const LeasingWorkflow = {
     const tabs = [
       { id: 'applications', name: 'Applications Tracking', icon: '&#128196;' },
       { id: 'inspections', name: 'Inspection Scheduler', icon: '&#128197;' },
-      { id: 'lease-studio', name: 'Digital Lease Studio', icon: '&#9997;' },
-      { id: 'chat', name: 'Landlord Messages', icon: '&#128172;' }
+      { id: 'lease-studio', name: 'Digital Lease Studio', icon: '&#9997;' }
     ];
 
     const tabsHTML = tabs.map(t => `
@@ -44,8 +43,7 @@ export const LeasingWorkflow = {
               <!-- TAB 3: LEASE SIGN STUDIO -->
               ${activeTab === 'lease-studio' ? this.renderLeaseStudioTab(state) : ''}
 
-              <!-- TAB 4: LANDLORD CHAT CENTER -->
-              ${activeTab === 'chat' ? this.renderChatTab(state, chats, activeLandlordId) : ''}
+              <!-- TAB 4: LANDLORD CHAT CENTER REMOVED -->
 
             </div>
           </div>
@@ -290,75 +288,6 @@ export const LeasingWorkflow = {
               <button type="submit" class="btn btn-primary" style="width:100%; margin-top:16px;">Apply Digital Signature</button>
             </form>
           `}
-        </div>
-      </div>
-    `;
-  },
-
-  // Messaging Center Tab
-  renderChatTab(state, chats, activeLandlordId) {
-    const activeChat = chats.find(c => c.landlordId === activeLandlordId) || chats[0];
-    
-    // Landlord rows sidebar list
-    const sidebarRowsHTML = chats.map(c => `
-      <div class="chat-landlord-row ${c.landlordId === activeLandlordId ? 'active' : ''}" data-id="${c.landlordId}">
-        <div class="chat-landlord-avatar">${c.avatar}</div>
-        <div style="flex:1; overflow:hidden;">
-          <div style="font-weight:bold; font-size:12px; color:var(--color-primary); display:flex; justify-content:space-between; align-items:baseline;">
-            <span>${c.landlordName}</span>
-            <span style="width:6px; height:6px; border-radius:50%; background:var(--color-success);"></span>
-          </div>
-          <p style="font-size:10px; color:#6B7280; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; margin-top:2px;">${c.property}</p>
-        </div>
-      </div>
-    `).join('');
-
-    // Messages feed bubbles HTML
-    const messagesHTML = activeChat?.messages.map(msg => {
-      const isTenant = msg.sender === 'tenant';
-      return `
-        <div class="message-wrapper ${isTenant ? 'tenant' : 'landlord'}">
-          <div class="message-bubble">${msg.text}</div>
-          <span class="message-time">${msg.time}</span>
-        </div>
-      `;
-    }).join('') || '';
-
-    return `
-      <div style="margin-bottom:16px;">
-        <h2 class="section-header">Landlord Messaging Console</h2>
-        <p class="text-sm text-muted">Direct CBN/compliancy-safe chat channels with properties managers.</p>
-      </div>
-
-      <div class="chat-layout-grid">
-        <!-- Sidebar -->
-        <div class="chat-landlords-sidebar">
-          <div style="padding:16px; border-bottom:1px solid #E5E7EB; font-weight:bold; font-size:12px; color:var(--color-primary);">Active Dialogues</div>
-          <div style="flex:1; overflow-y:auto;">
-            ${sidebarRowsHTML}
-          </div>
-        </div>
-
-        <!-- Chat area -->
-        <div class="chat-main-window">
-          <!-- Chat header -->
-          <div style="padding:16px 24px; border-bottom:1px solid #E5E7EB; background:white; text-align:left;">
-            <div style="font-weight:bold; font-size:14px; color:var(--color-primary);">${activeChat?.landlordName}</div>
-            <p style="font-size:10px; color:#6B7280; margin:2px 0 0 0;">Property: ${activeChat?.property}</p>
-          </div>
-
-          <!-- Messages scroll feed -->
-          <div class="chat-messages-container" id="chat-messages-feed">
-            ${messagesHTML}
-          </div>
-
-          <!-- Input bar -->
-          <form id="chat-send-form">
-            <div class="chat-input-bar">
-              <input class="form-input" style="padding:10px 16px; font-size:12px; flex:1;" type="text" id="chat-msg-input" placeholder="Type message..." required autocomplete="off">
-              <button type="submit" class="btn btn-primary btn-sm" style="padding:10px 20px;">Send</button>
-            </div>
-          </form>
         </div>
       </div>
     `;
@@ -613,93 +542,5 @@ export const LeasingWorkflow = {
       navigateTo('leasing');
     });
 
-    // 5. Landlord Messaging chat box scroll & send callbacks
-    const chatFeed = document.getElementById('chat-messages-feed');
-    if (chatFeed) {
-      chatFeed.scrollTop = chatFeed.scrollHeight; // auto-scroll to bottom
-    }
-
-    // Selecting landlord row
-    document.querySelectorAll('.chat-landlord-row').forEach(row => {
-      row.addEventListener('click', () => {
-        const id = row.getAttribute('data-id');
-        updateState({ activeChatLandlordId: id });
-        navigateTo('leasing');
-      });
-    });
-
-    // Submitting chat
-    const chatForm = document.getElementById('chat-send-form');
-    chatForm?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const msgInput = document.getElementById('chat-msg-input');
-      const text = msgInput.value.trim();
-      if (!text) return;
-
-      const activeChat = chats.find(c => c.landlordId === activeLandlordId);
-      
-      const newMsg = {
-        id: Date.now(),
-        sender: 'tenant',
-        text: text,
-        time: 'Just now'
-      };
-
-      const updatedChat = {
-        ...activeChat,
-        messages: [...activeChat.messages, newMsg]
-      };
-
-      const updatedChats = chats.map(c => {
-        if (c.landlordId === activeLandlordId) return updatedChat;
-        return c;
-      });
-
-      updateState({ chats: updatedChats });
-      msgInput.value = ''; // clear input
-      navigateTo('leasing');
-
-      // 6. Automated reply simulation
-      setTimeout(() => {
-        const replyChat = state.chats.find(c => c.landlordId === activeLandlordId);
-        
-        let replyText = "Thank you for the message. I will check the records and get back to you shortly.";
-        if (activeLandlordId === 'alabi') replyText = "Understood, Osaze. I will check the physical walkthrough dates and confirm my availability.";
-        else if (activeLandlordId === 'coker') replyText = "Lease details are set. Let me know when you execute the countersignature in the lease studio.";
-
-        const replyMsg = {
-          id: Date.now() + 1,
-          sender: 'landlord',
-          text: replyText,
-          time: 'Just now'
-        };
-
-        const updatedReplyChat = {
-          ...replyChat,
-          messages: [...replyChat.messages, replyMsg]
-        };
-
-        const finalChats = state.chats.map(c => {
-          if (c.landlordId === activeLandlordId) return updatedReplyChat;
-          return c;
-        });
-
-        // Trigger notification
-        const newNotifs = [
-          {
-            id: Date.now(),
-            type: 'match',
-            text: `New Chat Message from ${replyChat.landlordName}.`,
-            time: 'Just now',
-            read: false
-          },
-          ...state.notifications
-        ];
-
-        updateState({ chats: finalChats, notifications: newNotifs });
-        navigateTo('leasing');
-      }, 1500);
-
-    });
   }
 };
